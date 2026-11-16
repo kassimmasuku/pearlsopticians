@@ -206,7 +206,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Glossy black with gold Triomphe logo",
     description: "Chunky black cat-eye frames featuring the signature gold Triomphe temple emblem.",
     image: img["frame-003.jpg"],
-    images: [img["frame-003.jpg"], img["frame-004.jpg"], img["frame-064.jpg"]],
+    images: [img["frame-003.jpg"], img["frame-004.jpg"]],
   },
   {
     id: "mauve-pink-gradient-round",
@@ -218,7 +218,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Smoky purple to pale pink gradient with gold temple accents",
     description: "Soft round frames in a translucent purple-to-pink ombré with mixed metal temples.",
     image: img["frame-005.jpg"],
-    images: [img["frame-005.jpg"], img["frame-008.jpg"], img["frame-031.jpg"], img["frame-040.jpg"], img["frame-042.jpg"], img["frame-043.jpg"]],
+    images: [img["frame-005.jpg"], img["frame-008.jpg"]],
   },
   {
     id: "chopard-purple-cateye",
@@ -230,7 +230,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Translucent plum purple with gold accents",
     description: "Elegant translucent purple cat-eye frames with gold metal hinge accents and Chopard script.",
     image: img["frame-006.jpg"],
-    images: [img["frame-006.jpg"], img["frame-007.jpg"], img["frame-049.jpg"]],
+    images: [img["frame-006.jpg"]],
   },
   {
     id: "fandia-burgundy-pink-cateye",
@@ -242,7 +242,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Burgundy-to-pink gradient with rose gold metal",
     description: "Hybrid acetate and rose-gold cat-eye frames with a wine-to-blush gradient rim.",
     image: img["frame-009.jpg"],
-    images: [img["frame-009.jpg"], img["frame-010.jpg"], img["frame-041.jpg"], img["frame-044.jpg"]],
+    images: [img["frame-009.jpg"], img["frame-010.jpg"]],
   },
   {
     id: "givenchy-black-square",
@@ -254,7 +254,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Glossy black",
     description: "Thick black square acetate frames with silver Givenchy temple nameplate.",
     image: img["frame-011.jpg"],
-    images: [img["frame-011.jpg"], img["frame-012.jpg"], img["frame-067.jpg"], img["frame-075.jpg"]],
+    images: [img["frame-011.jpg"], img["frame-012.jpg"]],
   },
   {
     id: "roseheir-cinnamon-rect",
@@ -266,7 +266,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Translucent cinnamon brown",
     description: "Slim translucent tea-brown rectangles marked Roseheir R2378.",
     image: img["frame-013.jpg"],
-    images: [img["frame-013.jpg"], img["frame-072.jpg"]],
+    images: [img["frame-013.jpg"]],
   },
   {
     id: "moeanr-lavender-geometric",
@@ -278,7 +278,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Clear lavender lilac",
     description: "Translucent lavender soft-hexagon frames with decorative infinity temple hardware.",
     image: img["frame-014.jpg"],
-    images: [img["frame-014.jpg"], img["frame-015.jpg"], img["frame-036.jpg"], img["frame-052.jpg"], img["frame-069.jpg"]],
+    images: [img["frame-014.jpg"], img["frame-015.jpg"]],
   },
   {
     id: "rimless-lavender-readers",
@@ -314,7 +314,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Dark translucent burgundy",
     description: "Glossy dark burgundy rectangular acetate frames, model 2143.",
     image: img["frame-021.jpg"],
-    images: [img["frame-018.jpg"], img["frame-021.jpg"], img["frame-046.jpg"]],
+    images: [img["frame-021.jpg"], img["frame-018.jpg"]],
   },
   {
     id: "gucci-black-cateye-9682",
@@ -326,7 +326,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Black with gold metal temples",
     description: "Black TR90 cat-eye frames with gold temples and decorative stud detailing, model 9682.",
     image: img["frame-019.jpg"],
-    images: [img["frame-019.jpg"], img["frame-024.jpg"], img["frame-025.jpg"], img["frame-030.jpg"], img["frame-032.jpg"], img["frame-033.jpg"], img["frame-051.jpg"]],
+    images: [img["frame-019.jpg"], img["frame-032.jpg"]],
   },
   {
     id: "gucci-black-semirimless-8240",
@@ -338,7 +338,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Matte black",
     description: "Slim black semi-rimless metal rectangles with clear nose pads, model 8240.",
     image: img["frame-020.jpg"],
-    images: [img["frame-020.jpg"], img["frame-023.jpg"], img["frame-034.jpg"], img["frame-062.jpg"]],
+    images: [img["frame-020.jpg"], img["frame-023.jpg"]],
   },
   {
     id: "police-tortoise-square-2833",
@@ -398,7 +398,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Translucent dusty mauve",
     description: "Solid translucent mauve soft cat-eye frames with gold hinge accents.",
     image: img["frame-054.jpg"],
-    images: [img["frame-037.jpg"], img["frame-054.jpg"]],
+    images: [img["frame-054.jpg"]],
   },
   {
     id: "geometric-hex-multicolor-stack",
@@ -410,7 +410,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Navy amber, forest green, ruby red, and blush teal colorways",
     description: "Oversized geometric hexagon model shown across its signature two-tone colorways.",
     image: img["frame-038.jpg"],
-    images: [img["frame-038.jpg"], img["frame-039.jpg"], img["frame-078.jpg"]],
+    images: [img["frame-038.jpg"], img["frame-078.jpg"]],
   },
   {
     id: "puma-navy-translucent",
@@ -446,7 +446,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Matte black with red temple tips",
     description: "Sporty matte black metal rectangles with signature red ear tips and Puma temple logo.",
     image: img["frame-048.jpg"],
-    images: [img["frame-048.jpg"], img["frame-050.jpg"]],
+    images: [img["frame-048.jpg"]],
   },
   {
     id: "versace-tortoise-medusa",
@@ -506,7 +506,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Black with silver panther accents",
     description: "Black geometric frames with signature silver panther-head corner ornaments, model 9676.",
     image: img["frame-061.jpg"],
-    images: [img["frame-058.jpg"], img["frame-061.jpg"]],
+    images: [img["frame-058.jpg"]],
   },
   {
     id: "chopard-black-cateye",
@@ -518,7 +518,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Glossy black with gold temples",
     description: "Black acetate cat-eye frames with slim gold temples and circular Chopard hinge emblem.",
     image: img["frame-059.jpg"],
-    images: [img["frame-059.jpg"], img["frame-060.jpg"]],
+    images: [img["frame-059.jpg"]],
   },
   {
     id: "tommy-hilfiger-black-9962",
@@ -614,7 +614,7 @@ export const attachedEyewearFrames: EyewearFrame[] = [
     color: "Translucent cherry red and red-accent clear variants",
     description: "Oversized soft-hexagon acetate model shown in solid red and related red colorways.",
     image: img["frame-077.jpg"],
-    images: [img["frame-076.jpg"], img["frame-077.jpg"]],
+    images: [img["frame-076.jpg"]],
   },
   {
     id: "tr-mauve-tortoise-cateye",
