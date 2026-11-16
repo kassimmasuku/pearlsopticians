@@ -1,0 +1,357 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ChevronDown, BookOpen, Phone, MessageCircle, Calendar,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import SeoHead from "@/components/SeoHead";
+import { useBranchContact } from "@/components/BranchContactProvider";
+import { seoByPath } from "@/data/seo";
+import imgEyeAnatomy from "@/assets/eye-facts/01-eye-anatomy.jpg";
+import imgGlaucoma from "@/assets/eye-facts/02-glaucoma.png";
+import imgUv from "@/assets/eye-facts/03-uv-wear.jpg";
+import imgChildExam from "@/assets/eye-facts/04-child-eye-exam.jpg";
+import imgDigitalStrain from "@/assets/eye-facts/05-digital-strain.jpg";
+import imgTearFilm from "@/assets/eye-facts/06-tear-film.png";
+import imgDiabetes from "@/assets/eye-facts/07-diabetes.png";
+import imgBrainPathway from "@/assets/eye-facts/08-brain-pathway.png";
+import imgLenses from "@/assets/eye-facts/09-lenses.jpg";
+import imgWarning from "@/assets/eye-facts/10-warning-signs.jpg";
+import imgNight from "@/assets/eye-facts/11-night-vision.jpg";
+import imgNutrition from "@/assets/eye-facts/12-nutrition.jpg";
+
+const topics = [
+  {
+    img: imgEyeAnatomy,
+    alt: "Scientific cross-section of the human eye labelling the cornea, iris, pupil, lens, retina and optic nerve",
+    title: "How the Eye Works",
+    summary: "Your eyes are incredibly complex organs that process millions of signals every second.",
+    sections: [
+      { heading: "Light Entry", content: "Light first enters the eye through the cornea — a clear, dome-shaped surface that covers the front of the eye. The cornea does most of the focusing, bending light rays so they pass through the pupil." },
+      { heading: "The Pupil & Iris", content: "The iris (the coloured part of your eye) controls the size of the pupil, regulating how much light enters. In bright light, the pupil constricts; in dim light, it dilates." },
+      { heading: "Focusing", content: "Behind the pupil, the crystalline lens fine-tunes the focus by changing shape — a process called accommodation. This allows you to switch focus between near and far objects." },
+      { heading: "The Retina", content: "Focused light lands on the retina at the back of the eye, which contains millions of photoreceptor cells — rods (for dim light and peripheral vision) and cones (for colour and detail)." },
+      { heading: "Signal to Brain", content: "The retina converts light into electrical signals that travel along the optic nerve to the visual cortex of the brain, where images are processed and interpreted. This entire process happens in milliseconds." },
+    ],
+  },
+  {
+    img: imgGlaucoma,
+    alt: "Medical illustration comparing normal vision and drainage with glaucoma-related optic nerve damage and tunnel vision",
+    title: "Glaucoma",
+    summary: "Known as the 'silent thief of sight' — often has no early symptoms.",
+    sections: [
+      { heading: "What Is Glaucoma?", content: "Glaucoma is a group of eye conditions that damage the optic nerve, often caused by abnormally high intraocular pressure. It is one of the leading causes of irreversible blindness worldwide." },
+      { heading: "Types", content: "The two main types are open-angle glaucoma (gradual, painless vision loss) and angle-closure glaucoma (sudden onset with eye pain, headaches, and nausea). Open-angle is far more common." },
+      { heading: "Risk Factors", content: "Age over 60, family history, African or Hispanic heritage, high eye pressure, thin corneas, and conditions like diabetes or high blood pressure all increase risk." },
+      { heading: "Detection", content: "Regular comprehensive eye exams with tonometry (pressure measurement) and optic nerve evaluation are essential. Early detection can prevent up to 90% of glaucoma-related blindness." },
+      { heading: "Treatment", content: "Treatment includes prescription eye drops, laser therapy, and surgical procedures. While damage cannot be reversed, treatment can slow or stop further vision loss." },
+    ],
+  },
+  {
+    img: imgUv,
+    alt: "Aviator sunglasses resting on sunlit beach sand, representing quality UV eye protection",
+    title: "UV Protection",
+    summary: "Prolonged UV exposure can cause cataracts, macular damage, and eye cancers.",
+    sections: [
+      { heading: "UV Radiation & Eyes", content: "Ultraviolet radiation from the sun can damage the cornea, lens, and retina. Both UVA and UVB rays pose risks, even on cloudy days when up to 80% of UV rays penetrate clouds." },
+      { heading: "Conditions Caused by UV", content: "Chronic UV exposure contributes to cataracts, macular degeneration, pterygium (growths on the eye surface), photokeratitis (sunburn of the cornea), and even ocular melanoma." },
+      { heading: "Choosing Sunglasses", content: "Look for lenses that block 99-100% of UVA and UVB rays. Wraparound styles provide the best coverage. Polarized lenses reduce glare but don't inherently provide UV protection — check the label." },
+      { heading: "Children & UV", content: "Children's eyes are more vulnerable because their lenses are clearer, allowing more UV to reach the retina. Start UV protection early with quality sunglasses and wide-brimmed hats." },
+      { heading: "Year-Round Protection", content: "UV exposure is not limited to summer. Snow reflects up to 80% of UV rays, and water and sand also increase exposure. Wear UV-protective eyewear year-round." },
+    ],
+  },
+  {
+    img: imgDigitalStrain,
+    alt: "Dual computer monitors glowing in a dark workspace, illustrating digital screen use and eye-strain awareness",
+    title: "Digital Eye Strain",
+    summary: "Screen time affects over 60% of regular computer users worldwide.",
+    sections: [
+      { heading: "What Is Digital Eye Strain?", content: "Also called computer vision syndrome, it encompasses a range of eye and vision problems resulting from prolonged screen use on computers, tablets, and smartphones." },
+      { heading: "Symptoms", content: "Common symptoms include dry eyes, blurred vision, headaches, neck and shoulder pain, eye fatigue, and difficulty focusing. Symptoms typically worsen with extended screen time." },
+      { heading: "The 20-20-20 Rule", content: "Every 20 minutes, look at something 20 feet (6 metres) away for at least 20 seconds. This simple habit allows your eye muscles to relax and reduces strain significantly." },
+      { heading: "Workspace Setup", content: "Position your screen at arm's length, slightly below eye level. Use proper lighting to minimize glare — avoid bright windows directly behind or in front of your screen." },
+      { heading: "Blue Light & Sleep", content: "Screens emit blue light that can disrupt your circadian rhythm. Consider blue light filtering lenses for extended screen use and reduce screen time 1-2 hours before bed." },
+    ],
+  },
+  {
+    img: imgChildExam,
+    alt: "Classic Snellen eye chart used to measure visual acuity during children's vision exams",
+    title: "Children's Vision",
+    summary: "Vision develops rapidly in early childhood — early detection is key.",
+    sections: [
+      { heading: "Vision Development", content: "Newborns can only see about 20-30 cm clearly. By 3-4 months, babies begin developing depth perception and colour vision. By age 2, eye-hand coordination and depth perception are well developed." },
+      { heading: "Common Conditions", content: "Amblyopia (lazy eye), strabismus (crossed eyes), and refractive errors (nearsightedness, farsightedness, astigmatism) are the most common childhood vision problems." },
+      { heading: "Warning Signs", content: "Watch for squinting, sitting too close to screens, frequent eye rubbing, tilting the head, losing place while reading, avoiding close activities, or complaints of headaches." },
+      { heading: "Exam Schedule", content: "Children should have eye exams at 6 months, 3 years, and before starting school. School-age children should have exams every 1-2 years, or more frequently if issues are detected." },
+      { heading: "Screen Time Guidelines", content: "For children under 2, avoid screen time. Ages 2-5: limit to 1 hour daily. School-age children: ensure regular breaks and outdoor play, which has been shown to reduce myopia progression." },
+    ],
+  },
+  {
+    img: imgTearFilm,
+    alt: "Educational diagram of the tear film showing lipid, aqueous and mucin layers over the cornea surface",
+    title: "Dry Eye Syndrome",
+    summary: "A common condition affecting tear production, quality, or drainage.",
+    sections: [
+      { heading: "What Is Dry Eye?", content: "Dry eye occurs when your tears don't provide adequate lubrication. This can happen because you don't produce enough tears or because your tears evaporate too quickly due to poor tear film quality." },
+      { heading: "Causes", content: "Aging, hormonal changes, medications (antihistamines, antidepressants), environmental factors (wind, dry air, smoke), extended screen use, and autoimmune conditions like Sjögren's syndrome." },
+      { heading: "Symptoms", content: "Burning, stinging, or scratchy sensation; redness; sensitivity to light; blurred vision; eye fatigue; and paradoxically, excessive watering as the eyes try to compensate." },
+      { heading: "Home Remedies", content: "Use artificial tears regularly, take screen breaks, use a humidifier, stay hydrated, wear wraparound sunglasses outdoors, and apply warm compresses to stimulate oil glands in your eyelids." },
+      { heading: "Professional Treatment", content: "Your optometrist may recommend prescription eye drops, punctal plugs (to retain tears), intense pulsed light therapy, or meibomian gland expression for more severe cases." },
+    ],
+  },
+  {
+    img: imgDiabetes,
+    alt: "Medical illustration comparing a healthy retina with diabetic retinopathy and a magnified fundus view of retinal damage",
+    title: "Diabetes & Your Eyes",
+    summary: "Diabetic retinopathy is a leading cause of blindness in working-age adults.",
+    sections: [
+      { heading: "How Diabetes Affects Eyes", content: "High blood sugar levels damage the small blood vessels in the retina. Over time, these vessels may leak fluid, swell, or grow abnormally, leading to vision impairment." },
+      { heading: "Diabetic Retinopathy Stages", content: "The condition progresses from mild non-proliferative (tiny bulges in blood vessels) through moderate and severe stages to proliferative diabetic retinopathy, where new, fragile blood vessels grow on the retina." },
+      { heading: "Other Diabetic Eye Conditions", content: "Diabetes also increases the risk of cataracts (2-5 times higher), glaucoma (nearly double the risk), and diabetic macular edema (swelling of the central retina affecting sharp vision)." },
+      { heading: "Prevention", content: "Control blood sugar, blood pressure, and cholesterol. Don't smoke. Exercise regularly. These lifestyle measures significantly reduce the risk of developing diabetic eye disease." },
+      { heading: "Screening", content: "All people with diabetes should have a comprehensive dilated eye exam at least once a year. Early diabetic retinopathy often has no symptoms, making regular screening life-saving for your vision." },
+    ],
+  },
+  {
+    img: imgNutrition,
+    alt: "Fresh eye-health foods including leafy greens, orange vegetables and avocado in a colourful meal presentation",
+    title: "Nutrition for Eye Health",
+    summary: "Key vitamins, minerals, and nutrients help protect and maintain your vision.",
+    sections: [
+      { heading: "Lutein & Zeaxanthin", content: "These carotenoids are found in the macula and act as natural blue-light filters and antioxidants. Rich sources include kale, spinach, broccoli, eggs, and corn. They help reduce risk of macular degeneration and cataracts." },
+      { heading: "Omega-3 Fatty Acids", content: "Essential for tear production and reducing dry eye symptoms. Found in fatty fish (salmon, mackerel, sardines), flaxseed, chia seeds, and walnuts. Aim for 2 servings of fish per week." },
+      { heading: "Vitamins A, C & E", content: "Vitamin A is essential for night vision and preventing dry eye. Vitamin C supports blood vessel health in the eyes. Vitamin E protects cells from oxidative damage. Found in carrots, citrus fruits, nuts, and seeds." },
+      { heading: "Zinc & Selenium", content: "Zinc helps vitamin A produce melanin, a protective pigment in the eyes. Selenium supports antioxidant enzymes. Good sources include oysters, beef, beans, nuts, and whole grains." },
+      { heading: "The AREDS2 Formula", content: "The Age-Related Eye Disease Study 2 showed that a specific combination of vitamins C and E, lutein, zeaxanthin, zinc, and copper can slow progression of intermediate age-related macular degeneration by about 25%." },
+    ],
+  },
+  {
+    img: imgBrainPathway,
+    alt: "Scientific diagram of the human visual pathway from the eyes through the optic nerves to the visual cortex",
+    title: "Eyes & Brain Connection",
+    summary: "Nearly 50% of your brain is dedicated to visual processing.",
+    sections: [
+      { heading: "Visual Processing", content: "Your eyes send approximately 10 million bits of data to the brain every second. The visual cortex, located at the back of the brain, processes this information into the images you perceive." },
+      { heading: "Neurological Signs", content: "Eye exams can reveal signs of neurological conditions including multiple sclerosis, brain tumours, aneurysms, and stroke. Changes in the optic nerve, visual field, or eye movement patterns can be early indicators." },
+      { heading: "Migraines & Vision", content: "Visual migraines (ocular migraines) cause temporary visual disturbances like zigzag lines, blind spots, or shimmering lights, even without headache. They result from changes in blood flow to the visual cortex." },
+      { heading: "Concussion & TBI", content: "Traumatic brain injuries can cause a range of vision problems including double vision, light sensitivity, difficulty reading, poor depth perception, and visual processing delays." },
+      { heading: "Systemic Health", content: "Eye exams can also detect signs of high blood pressure, high cholesterol, diabetes, thyroid disease, and certain cancers — sometimes before other symptoms appear. Your eyes truly are windows to your overall health." },
+    ],
+  },
+  {
+    img: imgWarning,
+    alt: "Close-up of a slit-lamp tonometer with cobalt-blue light, representing urgent clinical eye assessment",
+    title: "Eye Emergencies",
+    summary: "Know the warning signs that require immediate professional attention.",
+    sections: [
+      { heading: "Sudden Vision Loss", content: "Any sudden loss of vision — partial or complete, in one or both eyes — is a medical emergency. It may indicate retinal detachment, stroke, or acute glaucoma. Seek immediate care." },
+      { heading: "Flashes & Floaters", content: "While occasional floaters are normal, a sudden increase in floaters, especially accompanied by flashing lights or a shadow in your peripheral vision, may signal retinal detachment." },
+      { heading: "Chemical Exposure", content: "If chemicals splash into your eyes, immediately flush with clean water for at least 15-20 minutes. Remove contact lenses if present. Then seek emergency medical attention." },
+      { heading: "Foreign Objects", content: "Small particles may be flushed out with clean water. Never rub your eye or attempt to remove embedded objects. Cover the eye lightly and seek professional help immediately." },
+      { heading: "When to Call", content: "Severe eye pain, halos around lights, a curtain-like shadow over vision, red eye with pain and nausea, or any penetrating eye injury — don't wait. These need urgent professional assessment." },
+    ],
+  },
+  {
+    img: imgNight,
+    alt: "City highway at night with headlight glare and light trails, illustrating low-light and night-driving vision challenges",
+    title: "Night Vision",
+    summary: "Your eyes can take up to 30 minutes to fully adapt to darkness.",
+    sections: [
+      { heading: "How Night Vision Works", content: "Rod cells in your retina are responsible for vision in low light. They contain a pigment called rhodopsin that breaks down in bright light and regenerates in darkness, gradually increasing sensitivity." },
+      { heading: "Dark Adaptation", content: "When you move from bright to dark conditions, your eyes undergo dark adaptation. Cone cells adapt within 5-7 minutes, while rod cells take 20-30 minutes for full sensitivity." },
+      { heading: "Night Blindness", content: "Difficulty seeing in dim light (nyctalopia) can be caused by vitamin A deficiency, cataracts, retinitis pigmentosa, or myopia. If you struggle with night driving, see your optometrist." },
+      { heading: "Driving at Night", content: "Keep your windshield clean, ensure your prescription is current, use anti-reflective coated lenses, avoid looking directly at oncoming headlights, and dim your dashboard lights." },
+      { heading: "Preserving Night Vision", content: "Close or cover one eye when exposed to brief bright light (like checking your phone) to preserve dark adaptation in that eye — a technique used by pilots and military personnel." },
+    ],
+  },
+  {
+    img: imgLenses,
+    alt: "Studio product photograph of prescription eyeglasses with clear lenses on a teal background",
+    title: "Choosing the Right Lenses",
+    summary: "Modern lenses offer far more than simple vision correction.",
+    sections: [
+      { heading: "Lens Types", content: "Single vision lenses correct one distance. Bifocals have two zones. Progressive (varifocal) lenses provide seamless transition from distance to near vision without visible lines." },
+      { heading: "Lens Materials", content: "CR-39 plastic is affordable and optically clear. Polycarbonate is impact-resistant and thinner. Trivex offers excellent optics with impact resistance. High-index materials are thinnest for strong prescriptions." },
+      { heading: "Coatings", content: "Anti-reflective coating reduces glare and reflections. Scratch-resistant coating improves durability. UV coating blocks harmful rays. Hydrophobic coating repels water and smudges." },
+      { heading: "Specialty Lenses", content: "Photochromic lenses darken automatically in sunlight. Blue-light filtering lenses reduce digital eye strain. Polarized lenses eliminate glare from reflective surfaces — ideal for driving and outdoor activities." },
+      { heading: "Getting the Right Fit", content: "Your optician measures pupillary distance, fitting height, and frame dimensions to ensure lenses are precisely centred for optimal vision. Always discuss your lifestyle and work needs for the best lens recommendation." },
+    ],
+  },
+  {
+    img: imgNutrition,
+    alt: "Fresh eye-health foods including leafy greens, orange vegetables and avocado in a colourful meal presentation",
+    title: "How To Care For Your Eyes",
+    summary: "Simple daily habits to maintain healthy vision throughout your life.",
+    sections: [
+      { heading: "Rest Your Eyes", content: "Give your eyes plenty of rest: There is nothing like closing your eyes and feeling that cooling sensation after a long, hectic day. Even though you may not be able to close your eyes for long, take a moment to close them for a few seconds when possible." },
+      { heading: "Adjust the Lighting", content: "The type of light we work in plays a key role in eye health. Avoid working and reading in poor light, and wherever possible, replace it with a more natural light such as sunlight." },
+      { heading: "Screen Use", content: "Our everyday life revolves around computers and mobile phones. Although you usually cannot stop using your computer, laptop or mobile phone, you can set your screen brightness to a more appropriate level for reading." },
+      { heading: "Take Frequent Breaks", content: "Doing any task for a long time in one spot can be both visually and physically tiring. Get up and take a brief walk for a few minutes. You may also want to add in some stretches and practice eye exercises such as the 20–20–20 rule: after 20 minutes of nearby work, look at something about 20 feet away and focus on it for 20 seconds." },
+      { heading: "Regular Exams", content: "Regular eye examinations, at least once every two years." },
+      { heading: "Contact Lens Hygiene", content: "Always wash your hands before putting in contact lenses." },
+      { heading: "Sun Protection", content: "Always wear sunglasses when out in the sun." },
+      { heading: "Healthy Diet", content: "Consume a diet rich in healthy fats such as nuts and seeds, and antioxidants such as leafy vegetables. A high intake of vitamins A and C is also recommended." },
+    ],
+  },
+  {
+    img: imgWarning,
+    alt: "Close-up of a slit-lamp tonometer with cobalt-blue light, representing urgent clinical eye assessment",
+    title: "Eye Symptoms",
+    summary: "Common eye symptoms that can reveal or result in more severe eye conditions.",
+    sections: [
+      { heading: "Overview", content: "It is common for people to experience a range of eye health issues throughout their lifetime. Some issues are treatable and some, if not treated in a timely manner, can permanently change your quality of health. You should always be sensitive to all eye concerns. Many basic eye problems can go away over time, but in other cases, you might need to visit a specialist. Getting your eyes checked regularly, at least once a year, can be beneficial." },
+      { heading: "Conjunctivitis", content: "Pink eye (conjunctivitis) is an inflammation or infection of the transparent membrane (conjunctiva) that lines your eyelid and covers the white part of your eyeball. When small blood vessels in the conjunctiva become inflamed, they're more visible. This is what causes the whites of your eyes to appear reddish or pink." },
+      { heading: "Bloodshot Eyes", content: "Eye redness occurs when the vessels in your eye become swollen or irritated. Redness of the eye, also called bloodshot eyes, can indicate the presence of several different health problems. While some of these problems are benign, others are serious and require emergency medical attention." },
+      { heading: "Eye Strain", content: "Eye strain is a symptom, not an eye disease. Eye strain occurs when your eyes get tired from intense use, such as driving a car for extended periods, reading, or working at the computer." },
+      { heading: "Blurred Vision", content: "Blurred vision refers to a lack of sharpness of vision resulting in the inability to see fine detail. Blurred vision may result from abnormalities such as nearsightedness, farsightedness, presbyopia, or astigmatism that can be improved with corrective lenses (eyeglasses) or it may signal the presence of eye disease." },
+      { heading: "Eye Fatigue", content: "Asthenopia is more commonly known as eyestrain or ocular fatigue. It's a common condition that occurs when your eyes become tired from intense use. Staring at a computer screen for long periods or straining to see in dim light are common causes." },
+      { heading: "Dry Eyes", content: "Dry eye disease is a common condition that occurs when your tears aren't able to provide adequate lubrication for your eyes. Tears can be inadequate and unstable for many reasons. For example, dry eyes may occur if you don't produce enough tears or if you produce poor-quality tears." },
+      { heading: "Red Eyes", content: "Red eyes usually are caused by allergy, eye fatigue, over-wearing contact lenses or common eye infections such as pink eye (conjunctivitis). However, redness of the eye sometimes can signal a more serious eye condition or disease, such as uveitis or glaucoma." },
+    ],
+  },
+  {
+    img: imgGlaucoma,
+    alt: "Medical illustration comparing normal vision and drainage with glaucoma-related optic nerve damage and tunnel vision",
+    title: "Eye Conditions",
+    summary: "Common eye conditions, their symptoms, causes, and care.",
+    sections: [
+      { heading: "Overview", content: "Eye conditions, more commonly known as eye problems, may have various causes: from genetic abnormalities to unhealthy habits and lifestyle choices. In the medium- to long-term, they could cause, among other things, vision difficulties, and even, in more severe cases, vision loss. Having regular visits with your optometrist to maintain your eye health should be one of the essential facets of your routine health care checklist. It is important to note that not every vision issue is severe. Often vision issues can be treated, and, in many cases, prevented by taking a few precautions." },
+      { heading: "Hypermetropia", content: "Hypermetropia (long-sightedness) is a common eye condition where nearby objects appear blurred, but your vision is clearer when looking at things further away. If you feel your eyes are often tired and you have problems focusing on objects close to your eyes, you may have hypermetropia." },
+      { heading: "Myopia", content: "Nearsightedness (myopia) is a common vision condition in which you can see objects near to you clearly, but objects farther away are blurry. It occurs when the shape of your eye causes light rays to bend (refract) incorrectly, focusing images in front of your retina instead of on your retina." },
+      { heading: "Presbyopia", content: "Presbyopia is the gradual loss of your eyes' ability to focus on nearby objects. It's a natural, often annoying part of aging. Presbyopia usually becomes noticeable in your early to mid-40s and continues to worsen until around age 65." },
+      { heading: "Astigmatism", content: "Astigmatism is a type of refractive error in which the eye does not focus light evenly on the retina. This results in distorted or blurred vision at any distance. Other symptoms can include eyestrain, headaches, and trouble driving at night." },
+      { heading: "Glaucoma", content: "Glaucoma is a group of eye conditions that damage the optic nerve, the health of which is vital for good vision. This damage is often caused by an abnormally high pressure in your eye. Glaucoma is one of the leading causes of blindness for people over the age of 60." },
+      { heading: "Cataracts", content: "A cataract is a dense, cloudy area that forms in the lens of the eye. A cataract begins when proteins in the eye form clumps that prevent the lens from sending clear images to the retina. The retina works by converting the light that comes through the lens into signals." },
+      { heading: "Retinopathy", content: "Retinopathy is any damage to the retina of the eyes, which may cause vision impairment. Retinopathy often refers to retinal vascular disease, or damage to the retina caused by abnormal blood flow." },
+    ],
+  },
+];
+
+const diagramTitles = new Set([
+  "Dry Eye Syndrome",
+  "Eyes & Brain Connection",
+  "Diabetes & Your Eyes",
+  "Glaucoma",
+  "Eye Conditions",
+]);
+
+const LearnAboutEyes = () => {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const { openContact } = useBranchContact();
+
+  return (
+    <>
+      <SeoHead seo={seoByPath["/learn"]} />
+      <Navbar />
+      <main className="pt-20 md:pt-24 pb-20 bg-background min-h-screen">
+        <section className="gradient-brand py-16 md:py-20">
+          <div className="container text-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <BookOpen className="mx-auto mb-4 text-primary-foreground" size={48} />
+              <h1 className="text-3xl md:text-5xl font-heading font-bold text-primary-foreground mb-4">
+                Learn About Your Eyes
+              </h1>
+              <p className="text-primary-foreground/80 max-w-xl mx-auto">
+                Explore interactive educational content about eye health, vision conditions, and how to protect your sight. Click any topic to learn more.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        <div className="container py-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {topics.map((topic, i) => {
+              const isExpanded = expandedIndex === i;
+              const isDiagram = diagramTitles.has(topic.title);
+
+              return (
+                <motion.article
+                  key={topic.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className={`bg-card rounded-xl shadow-card overflow-hidden transition-all duration-300 ${
+                    isExpanded ? "ring-2 ring-primary sm:col-span-2 lg:col-span-3" : "hover:shadow-teal cursor-pointer"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    className="w-full text-left"
+                    onClick={() => setExpandedIndex(isExpanded ? null : i)}
+                    aria-expanded={isExpanded}
+                  >
+                    <div className={`overflow-hidden bg-muted ${isExpanded ? "aspect-[21/9] md:aspect-[24/9]" : "aspect-[16/10]"}`}>
+                      <img
+                        src={topic.img}
+                        alt={topic.alt}
+                        className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
+                          isDiagram ? "object-contain bg-background p-3 md:p-4" : ""
+                        } ${topic.title === "Diabetes & Your Eyes" || topic.title === "Glaucoma" || topic.title === "Eye Conditions" ? "object-contain bg-white p-2" : ""}`}
+                        loading="lazy"
+                      />
+                    </div>
+
+                    <div className="p-5 md:p-6 flex items-start gap-3">
+                      <div className="flex-1 min-w-0">
+                        <h2 className="font-heading text-lg font-semibold text-foreground mb-1">{topic.title}</h2>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{topic.summary}</p>
+                      </div>
+                      <ChevronDown
+                        size={20}
+                        className={`text-muted-foreground shrink-0 transition-transform duration-300 mt-1 ${
+                          isExpanded ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+                  </button>
+
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 md:px-6 pb-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4 border-t border-border pt-4">
+                          {topic.sections.map((section) => (
+                            <div key={section.heading} className="bg-accent/50 rounded-lg p-4">
+                              <h3 className="font-heading font-semibold text-foreground text-sm mb-2">{section.heading}</h3>
+                              <p className="text-muted-foreground text-sm leading-relaxed">{section.content}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-md border-t border-border py-3 px-4 flex items-center justify-center gap-3">
+          <a href="/#booking">
+            <Button size="sm" className="gradient-teal text-primary-foreground gap-1.5 text-xs">
+              <Calendar size={14} /> Book Eye Exam
+            </Button>
+          </a>
+          <Button size="sm" variant="outline" className="gap-1.5 text-xs" onClick={() => openContact("whatsapp")}>
+            <MessageCircle size={14} /> WhatsApp Us
+          </Button>
+          <Button size="sm" variant="outline" className="gap-1.5 text-xs" onClick={() => openContact("call")}>
+            <Phone size={14} /> Call Now
+          </Button>
+        </div>
+      </main>
+      <Footer />
+      <WhatsAppButton />
+    </>
+  );
+};
+
+export default LearnAboutEyes;
