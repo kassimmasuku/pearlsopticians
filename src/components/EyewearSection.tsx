@@ -41,8 +41,11 @@ const EyewearSection = () => {
                 <img
                   src={frame.image}
                   alt={`${frame.name} - ${frame.brand}`}
+                  width={800}
+                  height={600}
                   className="w-full h-full object-contain p-3 md:p-4 group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
+                  loading={i < 4 ? "eager" : "lazy"}
+                  decoding="async"
                 />
                 {frame.images.length > 1 && (
                   <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 text-[9px] md:text-[10px] font-medium bg-foreground/75 text-background px-1.5 py-0.5 rounded-full">

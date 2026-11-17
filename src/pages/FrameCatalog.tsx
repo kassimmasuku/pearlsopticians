@@ -142,8 +142,12 @@ const FrameCard = ({
       <img
         src={frame.image}
         alt={`${frame.name} - ${frame.brand} ${frame.shape} frames`}
+        width={800}
+        height={600}
         className="w-full h-full object-contain p-3 md:p-4 group-hover:scale-105 transition-transform duration-500"
-        loading="lazy"
+        loading={index < 6 ? "eager" : "lazy"}
+        decoding="async"
+        {...(index === 0 ? { fetchPriority: "high" as const } : {})}
       />
       <span className="absolute top-2 left-2 text-[9px] md:text-[10px] font-semibold uppercase tracking-wider bg-primary text-primary-foreground px-1.5 py-0.5 md:px-2 rounded-full">
         {frame.category}

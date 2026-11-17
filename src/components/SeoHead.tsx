@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import type { PageSeo } from "@/data/seo";
-import { SITE_NAME } from "@/data/seo";
+import {
+  OG_IMAGE_ALT,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
+  SITE_NAME,
+} from "@/data/seo";
 
 const META_ATTR = "data-pearl-seo";
 
@@ -54,6 +59,18 @@ const SeoHead = ({ seo }: { seo: PageSeo }) => {
     });
     upsertMeta('meta[property="og:url"]', { property: "og:url", content: seo.ogUrl });
     upsertMeta('meta[property="og:image"]', { property: "og:image", content: seo.ogImage });
+    upsertMeta('meta[property="og:image:width"]', {
+      property: "og:image:width",
+      content: String(OG_IMAGE_WIDTH),
+    });
+    upsertMeta('meta[property="og:image:height"]', {
+      property: "og:image:height",
+      content: String(OG_IMAGE_HEIGHT),
+    });
+    upsertMeta('meta[property="og:image:alt"]', {
+      property: "og:image:alt",
+      content: OG_IMAGE_ALT,
+    });
 
     upsertMeta('meta[name="twitter:card"]', {
       name: "twitter:card",
@@ -67,6 +84,10 @@ const SeoHead = ({ seo }: { seo: PageSeo }) => {
     upsertMeta('meta[name="twitter:image"]', {
       name: "twitter:image",
       content: seo.twitterImage,
+    });
+    upsertMeta('meta[name="twitter:image:alt"]', {
+      name: "twitter:image:alt",
+      content: OG_IMAGE_ALT,
     });
   }, [seo]);
 

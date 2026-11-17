@@ -49,7 +49,7 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Pearls Opticians Logo" className="h-14 md:h-20 w-auto" />
+          <img src={logo} alt="Pearls Opticians Logo" width={160} height={80} className="h-14 md:h-20 w-auto" decoding="async" />
         </Link>
 
         {/* Desktop */}

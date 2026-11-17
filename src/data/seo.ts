@@ -2,6 +2,10 @@
 
 export const SITE_ORIGIN = "https://pearlsopticians.co.zw";
 export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/images/og-default.jpg`;
+export const BRAND_LOGO_URL = `${SITE_ORIGIN}/images/pearls-opticians-brand.png`;
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
+export const OG_IMAGE_ALT = "Pearls Opticians — Eye Care & Eye Wear";
 export const SITE_NAME = "Pearls Opticians";
 
 export type PageSeo = {

@@ -42,7 +42,10 @@ const Footer = () => {
               <img
                 src={logo}
                 alt="Pearls Opticians Logo"
+                width={160}
+                height={80}
                 className="h-14 w-auto brightness-200 transition-transform duration-300 group-hover:scale-[1.02]"
+                decoding="async"
               />
             </a>
             <h3 className="font-heading text-xl md:text-2xl font-semibold text-primary-foreground mb-3">

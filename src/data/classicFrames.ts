@@ -1,29 +1,29 @@
 import type { EyewearFrame } from "./eyewearFrames";
 
-import oakleyFront from "@/assets/frames/oakley-front.jpg";
-import oakleySide from "@/assets/frames/oakley-side.jpg";
-import chopardFront2 from "@/assets/frames/chopard-front-2.jpg";
-import chopardSide from "@/assets/frames/chopard-side.jpg";
-import montblancRect from "@/assets/frames/montblanc-rect.jpg";
-import montblancSquare from "@/assets/frames/montblanc-square.jpg";
-import montblancSide from "@/assets/frames/montblanc-side.jpg";
-import bvlgariGlam from "@/assets/frames/bvlgari-glam.jpg";
-import bvlgariSerpenti from "@/assets/frames/bvlgari-serpenti.jpg";
-import bvlgariSide from "@/assets/frames/bvlgari-side.jpg";
-import carreraTr90 from "@/assets/frames/carrera-tr90.jpg";
-import carreraSportSide from "@/assets/frames/carrera-sport-side.jpg";
-import tommyJeansFront from "@/assets/frames/tommy-jeans-front.jpg";
-import tommyJeans from "@/assets/frames/tommy-jeans.jpg";
-import tommyJeansSide from "@/assets/frames/tommy-jeans-side.jpg";
-import tommyJeans2 from "@/assets/frames/tommy-jeans-2.jpg";
-import celineFront from "@/assets/frames/celine-front.jpg";
-import celineSide from "@/assets/frames/celine-side.jpg";
-import bossFront from "@/assets/frames/boss-front.jpg";
-import bossSide from "@/assets/frames/boss-side.jpg";
-import gucciFront from "@/assets/frames/gucci-front.jpg";
-import gucciSide from "@/assets/frames/gucci-side.jpg";
-import pradaFront from "@/assets/frames/prada-front.jpg";
-import pradaSide from "@/assets/frames/prada-side.jpg";
+import oakleyFront from "@/assets/frames/oakley-front.webp";
+import oakleySide from "@/assets/frames/oakley-side.webp";
+import chopardFront2 from "@/assets/frames/chopard-front-2.webp";
+import chopardSide from "@/assets/frames/chopard-side.webp";
+import montblancRect from "@/assets/frames/montblanc-rect.webp";
+import montblancSquare from "@/assets/frames/montblanc-square.webp";
+import montblancSide from "@/assets/frames/montblanc-side.webp";
+import bvlgariGlam from "@/assets/frames/bvlgari-glam.webp";
+import bvlgariSerpenti from "@/assets/frames/bvlgari-serpenti.webp";
+import bvlgariSide from "@/assets/frames/bvlgari-side.webp";
+import carreraTr90 from "@/assets/frames/carrera-tr90.webp";
+import carreraSportSide from "@/assets/frames/carrera-sport-side.webp";
+import tommyJeansFront from "@/assets/frames/tommy-jeans-front.webp";
+import tommyJeans from "@/assets/frames/tommy-jeans.webp";
+import tommyJeansSide from "@/assets/frames/tommy-jeans-side.webp";
+import tommyJeans2 from "@/assets/frames/tommy-jeans-2.webp";
+import celineFront from "@/assets/frames/celine-front.webp";
+import celineSide from "@/assets/frames/celine-side.webp";
+import bossFront from "@/assets/frames/boss-front.webp";
+import bossSide from "@/assets/frames/boss-side.webp";
+import gucciFront from "@/assets/frames/gucci-front.webp";
+import gucciSide from "@/assets/frames/gucci-side.webp";
+import pradaFront from "@/assets/frames/prada-front.webp";
+import pradaSide from "@/assets/frames/prada-side.webp";
 
 /** Original catalog frames. Each slider keeps one image per distinct angle. */
 export const classicFrames: EyewearFrame[] = [

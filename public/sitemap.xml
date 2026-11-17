@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://pearlsopticians.co.zw/</loc>
+    <image:image>
+      <image:loc>https://pearlsopticians.co.zw/images/pearls-opticians-brand.png</image:loc>
+      <image:title>Pearls Opticians</image:title>
+      <image:caption>Pearls Opticians — Eye Care &amp; Eye Wear</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://pearlsopticians.co.zw/images/og-default.jpg</image:loc>
+      <image:title>Pearls Opticians social preview</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://pearlsopticians.co.zw/about</loc>
+  </url>
+  <url>
+    <loc>https://pearlsopticians.co.zw/frames</loc>
+  </url>
+  <url>
+    <loc>https://pearlsopticians.co.zw/learn</loc>
+  </url>
+</urlset>

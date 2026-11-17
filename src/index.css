@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+/* Google Fonts are loaded via <link> in index.html (preconnect + stylesheet)
+   to avoid the CSS @import waterfall that delays FCP. */
 
 @tailwind base;
 @tailwind components;
@@ -146,4 +147,21 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Brand logo marquee — translate by 50% of the duplicated track */
+@keyframes brand-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@layer utilities {
+  .animate-brand-marquee {
+    animation: brand-marquee 40s linear infinite;
+    will-change: transform;
+  }
 }

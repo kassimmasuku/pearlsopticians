@@ -1,19 +1,19 @@
-import neill from "@/assets/team/neill-mtungwazi.jpg";
-import patricia from "@/assets/team/patricia-sibanda.jpg";
-import lynnete from "@/assets/team/lynnete-dube-famba.jpg";
-import kudakwashe from "@/assets/team/kudakwashe-yotamu.jpg";
-import vongai from "@/assets/team/vongai-chirongoma.jpg";
-import batsirai from "@/assets/team/batsirai-runeka.jpg";
-import tinaye from "@/assets/team/tinaye-chiweshe.jpg";
-import brett from "@/assets/team/brett.jpg";
-import rumbidzai from "@/assets/team/rumbidzai-muza.jpg";
-import charlotte from "@/assets/team/charlotte-kapasura.jpg";
-import pauline from "@/assets/team/pauline-marime.jpg";
-import adrianna from "@/assets/team/adrianna-chiyangwa.jpg";
-import tinevimbo from "@/assets/team/tinevimbo-nyoni.jpg";
-import vimbai from "@/assets/team/vimbai-simango.jpg";
-import brendon from "@/assets/team/brendon-kawanza.jpg";
-import sean from "@/assets/team/sean-mponda.jpg";
+import neill from "@/assets/team/neill-mtungwazi.webp";
+import patricia from "@/assets/team/patricia-sibanda.webp";
+import lynnete from "@/assets/team/lynnete-dube-famba.webp";
+import kudakwashe from "@/assets/team/kudakwashe-yotamu.webp";
+import vongai from "@/assets/team/vongai-chirongoma.webp";
+import batsirai from "@/assets/team/batsirai-runeka.webp";
+import tinaye from "@/assets/team/tinaye-chiweshe.webp";
+import brett from "@/assets/team/brett.webp";
+import rumbidzai from "@/assets/team/rumbidzai-muza.webp";
+import charlotte from "@/assets/team/charlotte-kapasura.webp";
+import pauline from "@/assets/team/pauline-marime.webp";
+import adrianna from "@/assets/team/adrianna-chiyangwa.webp";
+import tinevimbo from "@/assets/team/tinevimbo-nyoni.webp";
+import vimbai from "@/assets/team/vimbai-simango.webp";
+import brendon from "@/assets/team/brendon-kawanza.webp";
+import sean from "@/assets/team/sean-mponda.webp";
 
 export type TeamMember = {
   id: string;

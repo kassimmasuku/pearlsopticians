@@ -10,22 +10,17 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import SeoHead from "@/components/SeoHead";
 import { useBranchContact } from "@/components/BranchContactProvider";
 import { seoByPath } from "@/data/seo";
-import imgEyeAnatomy from "@/assets/eye-facts/01-eye-anatomy.jpg";
-import imgGlaucoma from "@/assets/eye-facts/02-glaucoma.png";
-import imgUv from "@/assets/eye-facts/03-uv-wear.jpg";
-import imgChildExam from "@/assets/eye-facts/04-child-eye-exam.jpg";
-import imgDigitalStrain from "@/assets/eye-facts/05-digital-strain.jpg";
-import imgTearFilm from "@/assets/eye-facts/06-tear-film.png";
-import imgDiabetes from "@/assets/eye-facts/07-diabetes.png";
-import imgBrainPathway from "@/assets/eye-facts/08-brain-pathway.png";
-import imgLenses from "@/assets/eye-facts/09-lenses.jpg";
-import imgWarning from "@/assets/eye-facts/10-warning-signs.jpg";
-import imgNight from "@/assets/eye-facts/11-night-vision.jpg";
-import imgNutrition from "@/assets/eye-facts/12-nutrition.jpg";
+import { eyeFactImages, type ResponsiveImage } from "@/data/optimizedMedia";
 
-const topics = [
+const topics: {
+  img: ResponsiveImage;
+  alt: string;
+  title: string;
+  summary: string;
+  sections: { heading: string; content: string }[];
+}[] = [
   {
-    img: imgEyeAnatomy,
+    img: eyeFactImages.eyeAnatomy,
     alt: "Scientific cross-section of the human eye labelling the cornea, iris, pupil, lens, retina and optic nerve",
     title: "How the Eye Works",
     summary: "Your eyes are incredibly complex organs that process millions of signals every second.",
@@ -38,7 +33,7 @@ const topics = [
     ],
   },
   {
-    img: imgGlaucoma,
+    img: eyeFactImages.glaucoma,
     alt: "Medical illustration comparing normal vision and drainage with glaucoma-related optic nerve damage and tunnel vision",
     title: "Glaucoma",
     summary: "Known as the 'silent thief of sight' — often has no early symptoms.",
@@ -51,7 +46,7 @@ const topics = [
     ],
   },
   {
-    img: imgUv,
+    img: eyeFactImages.uvWear,
     alt: "Aviator sunglasses resting on sunlit beach sand, representing quality UV eye protection",
     title: "UV Protection",
     summary: "Prolonged UV exposure can cause cataracts, macular damage, and eye cancers.",
@@ -64,7 +59,7 @@ const topics = [
     ],
   },
   {
-    img: imgDigitalStrain,
+    img: eyeFactImages.digitalStrain,
     alt: "Dual computer monitors glowing in a dark workspace, illustrating digital screen use and eye-strain awareness",
     title: "Digital Eye Strain",
     summary: "Screen time affects over 60% of regular computer users worldwide.",
@@ -77,7 +72,7 @@ const topics = [
     ],
   },
   {
-    img: imgChildExam,
+    img: eyeFactImages.childExam,
     alt: "Classic Snellen eye chart used to measure visual acuity during children's vision exams",
     title: "Children's Vision",
     summary: "Vision develops rapidly in early childhood — early detection is key.",
@@ -90,7 +85,7 @@ const topics = [
     ],
   },
   {
-    img: imgTearFilm,
+    img: eyeFactImages.tearFilm,
     alt: "Educational diagram of the tear film showing lipid, aqueous and mucin layers over the cornea surface",
     title: "Dry Eye Syndrome",
     summary: "A common condition affecting tear production, quality, or drainage.",
@@ -103,7 +98,7 @@ const topics = [
     ],
   },
   {
-    img: imgDiabetes,
+    img: eyeFactImages.diabetes,
     alt: "Medical illustration comparing a healthy retina with diabetic retinopathy and a magnified fundus view of retinal damage",
     title: "Diabetes & Your Eyes",
     summary: "Diabetic retinopathy is a leading cause of blindness in working-age adults.",
@@ -116,7 +111,7 @@ const topics = [
     ],
   },
   {
-    img: imgNutrition,
+    img: eyeFactImages.nutrition,
     alt: "Fresh eye-health foods including leafy greens, orange vegetables and avocado in a colourful meal presentation",
     title: "Nutrition for Eye Health",
     summary: "Key vitamins, minerals, and nutrients help protect and maintain your vision.",
@@ -129,7 +124,7 @@ const topics = [
     ],
   },
   {
-    img: imgBrainPathway,
+    img: eyeFactImages.brainPathway,
     alt: "Scientific diagram of the human visual pathway from the eyes through the optic nerves to the visual cortex",
     title: "Eyes & Brain Connection",
     summary: "Nearly 50% of your brain is dedicated to visual processing.",
@@ -142,7 +137,7 @@ const topics = [
     ],
   },
   {
-    img: imgWarning,
+    img: eyeFactImages.warning,
     alt: "Close-up of a slit-lamp tonometer with cobalt-blue light, representing urgent clinical eye assessment",
     title: "Eye Emergencies",
     summary: "Know the warning signs that require immediate professional attention.",
@@ -155,7 +150,7 @@ const topics = [
     ],
   },
   {
-    img: imgNight,
+    img: eyeFactImages.nightVision,
     alt: "City highway at night with headlight glare and light trails, illustrating low-light and night-driving vision challenges",
     title: "Night Vision",
     summary: "Your eyes can take up to 30 minutes to fully adapt to darkness.",
@@ -168,7 +163,7 @@ const topics = [
     ],
   },
   {
-    img: imgLenses,
+    img: eyeFactImages.lenses,
     alt: "Studio product photograph of prescription eyeglasses with clear lenses on a teal background",
     title: "Choosing the Right Lenses",
     summary: "Modern lenses offer far more than simple vision correction.",
@@ -181,7 +176,7 @@ const topics = [
     ],
   },
   {
-    img: imgNutrition,
+    img: eyeFactImages.nutrition,
     alt: "Fresh eye-health foods including leafy greens, orange vegetables and avocado in a colourful meal presentation",
     title: "How To Care For Your Eyes",
     summary: "Simple daily habits to maintain healthy vision throughout your life.",
@@ -197,7 +192,7 @@ const topics = [
     ],
   },
   {
-    img: imgWarning,
+    img: eyeFactImages.warning,
     alt: "Close-up of a slit-lamp tonometer with cobalt-blue light, representing urgent clinical eye assessment",
     title: "Eye Symptoms",
     summary: "Common eye symptoms that can reveal or result in more severe eye conditions.",
@@ -213,7 +208,7 @@ const topics = [
     ],
   },
   {
-    img: imgGlaucoma,
+    img: eyeFactImages.glaucoma,
     alt: "Medical illustration comparing normal vision and drainage with glaucoma-related optic nerve damage and tunnel vision",
     title: "Eye Conditions",
     summary: "Common eye conditions, their symptoms, causes, and care.",
@@ -285,12 +280,17 @@ const LearnAboutEyes = () => {
                   >
                     <div className={`overflow-hidden bg-muted ${isExpanded ? "aspect-[21/9] md:aspect-[24/9]" : "aspect-[16/10]"}`}>
                       <img
-                        src={topic.img}
+                        src={topic.img.src}
+                        srcSet={topic.img.srcSet}
+                        sizes={topic.img.sizes}
+                        width={topic.img.width}
+                        height={topic.img.height}
                         alt={topic.alt}
                         className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
                           isDiagram ? "object-contain bg-background p-3 md:p-4" : ""
                         } ${topic.title === "Diabetes & Your Eyes" || topic.title === "Glaucoma" || topic.title === "Eye Conditions" ? "object-contain bg-white p-2" : ""}`}
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
 

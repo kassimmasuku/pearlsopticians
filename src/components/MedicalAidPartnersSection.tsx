@@ -37,6 +37,8 @@ const MedicalAidPartnersSection = () => (
             <img
               src={aid.logo}
               alt={aid.alt}
+              width={180}
+              height={84}
               loading="lazy"
               decoding="async"
               className="max-h-[4.5rem] sm:max-h-[5.25rem] w-auto max-w-full object-contain opacity-90 transition-all duration-300 group-hover:opacity-100 group-hover:scale-[1.03]"

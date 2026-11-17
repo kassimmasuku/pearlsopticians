@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { CalendarCheck, ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-phoropter.jpg";
+import { heroPhoropter } from "@/data/optimizedMedia";
 
 const HeroSection = () => (
   <section id="home" className="relative min-h-screen flex items-end md:items-center overflow-hidden bg-[hsl(220_10%_92%)]">
@@ -12,10 +12,16 @@ const HeroSection = () => (
       transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
     >
       <img
-        src={heroImage}
+        src={heroPhoropter.src}
+        srcSet={heroPhoropter.srcSet}
+        sizes={heroPhoropter.sizes}
+        width={heroPhoropter.width}
+        height={heroPhoropter.height}
         alt="Precision phoropter eye examination equipment at Pearls Opticians"
         className="h-full w-full object-cover object-center"
         fetchPriority="high"
+        loading="eager"
+        decoding="async"
       />
     </motion.div>
 

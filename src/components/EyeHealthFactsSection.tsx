@@ -1,23 +1,86 @@
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Eye, Shield, Sun, Baby, Monitor, Droplets, Heart, Brain, Glasses, AlertTriangle, Zap, Leaf } from "lucide-react";
-import imgEyeAnatomy from "@/assets/eye-facts/01-eye-anatomy.jpg";
-import imgGlaucoma from "@/assets/eye-facts/02-glaucoma.png";
-import imgUv from "@/assets/eye-facts/03-uv-wear.jpg";
-import imgChildExam from "@/assets/eye-facts/04-child-eye-exam.jpg";
-import imgDigitalStrain from "@/assets/eye-facts/05-digital-strain.jpg";
-import imgTearFilm from "@/assets/eye-facts/06-tear-film.png";
-import imgDiabetes from "@/assets/eye-facts/07-diabetes.png";
-import imgBrainPathway from "@/assets/eye-facts/08-brain-pathway.png";
-import imgLenses from "@/assets/eye-facts/09-lenses.jpg";
-import imgWarning from "@/assets/eye-facts/10-warning-signs.jpg";
-import imgNight from "@/assets/eye-facts/11-night-vision.jpg";
-import imgNutrition from "@/assets/eye-facts/12-nutrition.jpg";
+import {
+  Eye,
+  Shield,
+  Sun,
+  Baby,
+  Monitor,
+  Droplets,
+  Heart,
+  Brain,
+  Glasses,
+  AlertTriangle,
+  Zap,
+  Leaf,
+  CalendarCheck,
+  Activity,
+} from "lucide-react";
+import { eyeFactImages, type ResponsiveImage } from "@/data/optimizedMedia";
+import DidYouKnowBlock from "@/components/DidYouKnowBlock";
+import tipVisionTesting from "@/assets/tip-vision-testing.webp";
+import tipEyeglasses from "@/assets/tip-eyeglasses.webp";
+import tipScreenProtection from "@/assets/tip-screen-protection.webp";
+import tipSunglasses from "@/assets/tip-sunglasses.webp";
 
-const facts = [
+const tipImage = (src: string, width = 960, height = 640): ResponsiveImage => ({
+  src,
+  srcSet: `${src} ${width}w`,
+  sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px",
+  width,
+  height,
+});
+
+const facts: {
+  icon: typeof Eye;
+  img: ResponsiveImage;
+  alt: string;
+  title: string;
+  summary: string;
+  detail: string;
+}[] = [
+  {
+    icon: CalendarCheck,
+    img: tipImage(tipVisionTesting),
+    alt: "Precision optical camera lens representing clarity and accurate vision assessment",
+    title: "Regular Eye Exams",
+    summary: "Schedule comprehensive eye exams at least once every two years, or annually if you wear corrective lenses.",
+    detail:
+      "Routine eye exams help keep your prescription up to date and support early awareness of eye health concerns. At Pearls Opticians we use modern diagnostic equipment and take time to explain your results clearly, whether you need a check-up, new glasses or peace of mind about changes in your vision.",
+  },
+  {
+    icon: Monitor,
+    img: tipImage(tipScreenProtection),
+    alt: "Bright computer workstation illustrating digital screen use and eye-strain awareness",
+    title: "Screen Protection",
+    summary:
+      "Follow the 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds to reduce digital eye strain.",
+    detail:
+      "Long hours on screens can lead to dry eyes, headaches and blurred vision. Pair the 20-20-20 rule with a screen at arm’s length, slightly below eye level, and good ambient lighting. Ask our team about practical lens options that can make extended screen use more comfortable.",
+  },
+  {
+    icon: Glasses,
+    img: tipImage(tipEyeglasses),
+    alt: "Round wooden eyeglass frames on a teal surface, highlighting prescription eyewear",
+    title: "Signs You Need Glasses",
+    summary:
+      "Frequent headaches, squinting, blurred vision, or difficulty seeing at night could mean it's time for an eye exam.",
+    detail:
+      "Changes in vision often appear gradually. If you notice headaches after reading, squinting to see distance, or struggling with night driving, a comprehensive exam can clarify whether you need correction and which lens options suit your lifestyle.",
+  },
+  {
+    icon: Activity,
+    img: tipImage(tipSunglasses),
+    alt: "Reflective sunglasses resting on stone in bright sunlight for UV eye protection",
+    title: "Healthy Vision Habits",
+    summary:
+      "Eat a balanced diet rich in omega-3s, wear UV-protective sunglasses outdoors, and avoid smoking for long-term eye health.",
+    detail:
+      "Everyday habits support lifelong vision. Leafy greens, fish and citrus provide nutrients linked to eye health, while quality sunglasses with UV protection help guard against cumulative sun damage. Pair healthy habits with regular exams for the best outcomes.",
+  },
   {
     icon: Eye,
-    img: imgEyeAnatomy,
+    img: eyeFactImages.eyeAnatomy,
     alt: "Scientific cross-section of the human eye labelling the cornea, iris, pupil, lens, retina and optic nerve",
     title: "How the Eye Works",
     summary: "Your eyes are incredibly complex organs processing millions of signals.",
@@ -25,7 +88,7 @@ const facts = [
   },
   {
     icon: Shield,
-    img: imgGlaucoma,
+    img: eyeFactImages.glaucoma,
     alt: "Medical illustration comparing normal vision and drainage with glaucoma-related optic nerve damage and tunnel vision",
     title: "Glaucoma Awareness",
     summary: "Known as the 'silent thief of sight' — often has no early symptoms.",
@@ -33,7 +96,7 @@ const facts = [
   },
   {
     icon: Sun,
-    img: imgUv,
+    img: eyeFactImages.uvWear,
     alt: "Aviator sunglasses resting on sunlit beach sand, representing quality UV eye protection",
     title: "UV Protection Matters",
     summary: "Prolonged UV exposure can cause cataracts and macular damage.",
@@ -41,7 +104,7 @@ const facts = [
   },
   {
     icon: Baby,
-    img: imgChildExam,
+    img: eyeFactImages.childExam,
     alt: "Classic Snellen eye chart used to measure visual acuity during children's vision exams",
     title: "Children's Vision Development",
     summary: "Vision develops rapidly in the first few years of life.",
@@ -49,7 +112,7 @@ const facts = [
   },
   {
     icon: Monitor,
-    img: imgDigitalStrain,
+    img: eyeFactImages.digitalStrain,
     alt: "Dual computer monitors glowing in a dark workspace, illustrating digital screen use and eye-strain awareness",
     title: "Digital Eye Strain",
     summary: "Screen time affects over 60% of regular computer users.",
@@ -57,7 +120,7 @@ const facts = [
   },
   {
     icon: Droplets,
-    img: imgTearFilm,
+    img: eyeFactImages.tearFilm,
     alt: "Educational diagram of the tear film showing lipid, aqueous and mucin layers over the cornea surface",
     title: "Dry Eye Syndrome",
     summary: "A common condition that affects tear production and quality.",
@@ -65,7 +128,7 @@ const facts = [
   },
   {
     icon: Heart,
-    img: imgDiabetes,
+    img: eyeFactImages.diabetes,
     alt: "Medical illustration comparing a healthy retina with diabetic retinopathy and a magnified fundus view of retinal damage",
     title: "Diabetes & Your Eyes",
     summary: "Diabetic retinopathy is a leading cause of blindness in adults.",
@@ -73,7 +136,7 @@ const facts = [
   },
   {
     icon: Brain,
-    img: imgBrainPathway,
+    img: eyeFactImages.brainPathway,
     alt: "Scientific diagram of the human visual pathway from the eyes through the optic nerves to the visual cortex",
     title: "Eyes & Brain Connection",
     summary: "Nearly 50% of your brain is involved in visual processing.",
@@ -81,7 +144,7 @@ const facts = [
   },
   {
     icon: Glasses,
-    img: imgLenses,
+    img: eyeFactImages.lenses,
     alt: "Studio product photograph of prescription eyeglasses with clear lenses on a teal background",
     title: "Choosing the Right Lenses",
     summary: "Modern lenses offer far more than simple vision correction.",
@@ -89,7 +152,7 @@ const facts = [
   },
   {
     icon: AlertTriangle,
-    img: imgWarning,
+    img: eyeFactImages.warning,
     alt: "Close-up of a slit-lamp tonometer with cobalt-blue light, representing urgent clinical eye assessment",
     title: "Warning Signs to Watch",
     summary: "Certain symptoms require immediate professional attention.",
@@ -97,7 +160,7 @@ const facts = [
   },
   {
     icon: Zap,
-    img: imgNight,
+    img: eyeFactImages.nightVision,
     alt: "City highway at night with headlight glare and light trails, illustrating low-light and night-driving vision challenges",
     title: "Night Vision Facts",
     summary: "Your eyes take up to 30 minutes to fully adapt to darkness.",
@@ -105,7 +168,7 @@ const facts = [
   },
   {
     icon: Leaf,
-    img: imgNutrition,
+    img: eyeFactImages.nutrition,
     alt: "Fresh eye-health foods including leafy greens, orange vegetables and avocado in a colourful meal presentation",
     title: "Nutrition for Eye Health",
     summary: "Certain nutrients are essential for maintaining healthy vision.",
@@ -126,10 +189,10 @@ const EyeHealthFactsSection = () => {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <p className="text-primary font-body text-sm uppercase tracking-widest mb-3">Learn More</p>
+          <p className="text-primary font-body text-sm uppercase tracking-widest mb-3">Eye Health Education</p>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">Eye Health & Vision Facts</h2>
           <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
-            Click on any card to learn more about your eye health and how to protect your vision.
+            Explore practical eye care tips and click any card to learn more about your vision and how to protect it.
           </p>
         </motion.div>
 
@@ -150,7 +213,11 @@ const EyeHealthFactsSection = () => {
               >
                 <div className={`overflow-hidden bg-muted ${isExpanded ? "aspect-[21/9] md:aspect-[24/9]" : "aspect-[16/10]"}`}>
                   <img
-                    src={fact.img}
+                    src={fact.img.src}
+                    srcSet={fact.img.srcSet}
+                    sizes={fact.img.sizes}
+                    width={fact.img.width}
+                    height={fact.img.height}
                     alt={fact.alt}
                     className={`h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${
                       fact.title === "Dry Eye Syndrome" || fact.title === "Eyes & Brain Connection"
@@ -158,6 +225,7 @@ const EyeHealthFactsSection = () => {
                         : ""
                     } ${fact.title === "Diabetes & Your Eyes" || fact.title === "Glaucoma Awareness" ? "object-contain bg-white p-2" : ""}`}
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
 
@@ -192,6 +260,8 @@ const EyeHealthFactsSection = () => {
             );
           })}
         </div>
+
+        <DidYouKnowBlock />
       </div>
     </section>
   );

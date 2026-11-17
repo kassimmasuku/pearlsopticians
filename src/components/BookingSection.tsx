@@ -19,6 +19,7 @@ const BookingSection = () => {
   const { toast } = useToast();
   const { openContact } = useBranchContact();
   const [form, setForm] = useState({ name: "", phone: "", email: "", branch: "", date: "", message: "" });
+  const [dateInputType, setDateInputType] = useState<"text" | "date">("text");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,16 +53,18 @@ const BookingSection = () => {
       description: `Your appointment request is ready to send to ${selectedBranch.name}.`,
     });
     setForm({ name: "", phone: "", email: "", branch: "", date: "", message: "" });
+    setDateInputType("text");
   };
 
   return (
     <section id="booking" className="py-20 md:py-28 gradient-teal">
       <div className="container">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-center min-w-0">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="min-w-0"
           >
             <CalendarCheck size={40} className="text-primary-foreground/80 mb-4" />
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-4">
@@ -96,7 +99,7 @@ const BookingSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="bg-card rounded-2xl p-6 md:p-8 shadow-card space-y-4"
+            className="w-full min-w-0 bg-card rounded-2xl p-6 md:p-8 shadow-card space-y-4 overflow-hidden"
           >
             <Input
               placeholder="Full Name *"
@@ -104,6 +107,7 @@ const BookingSection = () => {
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               maxLength={100}
               required
+              className="w-full min-w-0"
             />
             <Input
               placeholder="Phone Number *"
@@ -111,6 +115,7 @@ const BookingSection = () => {
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
               maxLength={20}
               required
+              className="w-full min-w-0"
             />
             <Input
               placeholder="Email"
@@ -118,12 +123,13 @@ const BookingSection = () => {
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               maxLength={255}
+              className="w-full min-w-0"
             />
             <Select
               value={form.branch || undefined}
               onValueChange={(branch) => setForm({ ...form, branch })}
             >
-              <SelectTrigger aria-label="Preferred branch">
+              <SelectTrigger aria-label="Preferred branch" className="w-full min-w-0">
                 <SelectValue placeholder="Preferred Branch *" />
               </SelectTrigger>
               <SelectContent>
@@ -135,9 +141,26 @@ const BookingSection = () => {
               </SelectContent>
             </Select>
             <Input
-              type="date"
+              type={dateInputType}
+              placeholder="Date"
               value={form.date}
               onChange={(e) => setForm({ ...form, date: e.target.value })}
+              onFocus={(e) => {
+                setDateInputType("date");
+                // Open native picker once the type has switched
+                requestAnimationFrame(() => {
+                  try {
+                    e.currentTarget.showPicker?.();
+                  } catch {
+                    /* ignore if unsupported */
+                  }
+                });
+              }}
+              onBlur={(e) => {
+                if (!e.currentTarget.value) setDateInputType("text");
+              }}
+              aria-label="Preferred date"
+              className="w-full min-w-0 max-w-full box-border [&::-webkit-date-and-time-value]:text-left [&::-webkit-calendar-picker-indicator]:ml-auto [&::-webkit-calendar-picker-indicator]:shrink-0"
             />
             <Textarea
               placeholder="Message (optional)"
@@ -145,6 +168,7 @@ const BookingSection = () => {
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               maxLength={500}
               rows={3}
+              className="w-full min-w-0"
             />
             <Button type="submit" className="w-full gradient-teal text-primary-foreground text-base" size="lg">
               Request Appointment
