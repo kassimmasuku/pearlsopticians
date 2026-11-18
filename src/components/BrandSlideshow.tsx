@@ -30,25 +30,15 @@ const brands = [
   { name: "Celine", logo: celineLogo },
 ];
 
-const LogoCard = ({
-  name,
-  logo,
-  className = "",
-}: {
-  name: string;
-  logo: string;
-  className?: string;
-}) => (
-  <div
-    className={`flex h-20 w-36 shrink-0 items-center justify-center sm:w-40 md:h-28 md:w-56 ${className}`}
-  >
+const LogoCard = ({ name, logo }: { name: string; logo: string }) => (
+  <div className="flex h-20 w-36 shrink-0 items-center justify-center sm:w-40 md:h-28 md:w-56">
     <img
       src={logo}
       alt={name}
       width={224}
       height={112}
       className="max-h-full max-w-full object-contain opacity-70 transition-opacity hover:opacity-100"
-      /* Eager: lazy + CSS/transform marquees leave off-screen logos unloaded on mobile */
+      /* Eager: CSS marquees leave off-screen logos unloaded if lazy */
       loading="eager"
       decoding="async"
       draggable={false}
@@ -56,11 +46,7 @@ const LogoCard = ({
   </div>
 );
 
-/**
- * Brand logo strip:
- * - Mobile: native horizontal swipe/scroll so every logo is reachable
- * - md+: seamless infinite marquee (CSS) matching the previous desktop look
- */
+/** Seamless infinite brand logo marquee on all breakpoints. */
 const BrandSlideshow = () => (
   <section className="bg-secondary py-10">
     <div className="container mb-4">
@@ -69,27 +55,8 @@ const BrandSlideshow = () => (
       </p>
     </div>
 
-    {/* Mobile / small tablet — swipeable track */}
-    <div className="md:hidden">
-      <div
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain px-4 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        style={{ WebkitOverflowScrolling: "touch" }}
-        aria-label="Frame brands"
-      >
-        {brands.map((brand) => (
-          <LogoCard
-            key={brand.name}
-            name={brand.name}
-            logo={brand.logo}
-            className="snap-center"
-          />
-        ))}
-      </div>
-    </div>
-
-    {/* Desktop / large tablet — infinite marquee */}
-    <div className="relative hidden overflow-hidden md:block" aria-label="Frame brands">
-      <div className="flex w-max animate-brand-marquee items-center gap-12 hover:[animation-play-state:paused] motion-reduce:animate-none">
+    <div className="relative overflow-hidden" aria-label="Frame brands">
+      <div className="flex w-max animate-brand-marquee items-center gap-8 sm:gap-10 md:gap-12 hover:[animation-play-state:paused] motion-reduce:animate-none">
         {[...brands, ...brands].map((brand, i) => (
           <LogoCard key={`${brand.name}-${i}`} name={brand.name} logo={brand.logo} />
         ))}

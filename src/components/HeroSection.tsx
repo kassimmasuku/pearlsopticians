@@ -35,7 +35,7 @@ const HeroSection = () => (
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.6 }}
-          className="text-muted-foreground font-body text-sm uppercase tracking-[0.2em] mb-4"
+          className="mb-4 font-body text-sm uppercase tracking-[0.2em] text-black"
         >
           Harare, Zimbabwe
         </motion.p>
@@ -53,7 +53,7 @@ const HeroSection = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55, duration: 0.6 }}
-          className="text-lg md:text-xl text-muted-foreground mb-8 max-w-md font-body leading-relaxed"
+          className="mb-8 max-w-md font-body text-lg leading-relaxed text-black md:text-xl"
         >
           Clear vision starts here — expert exams and quality eyewear.
         </motion.p>

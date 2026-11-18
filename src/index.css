@@ -161,7 +161,13 @@ html {
 
 @layer utilities {
   .animate-brand-marquee {
-    animation: brand-marquee 40s linear infinite;
+    animation: brand-marquee 28s linear infinite;
     will-change: transform;
+  }
+
+  @media (min-width: 768px) {
+    .animate-brand-marquee {
+      animation-duration: 40s;
+    }
   }
 }
