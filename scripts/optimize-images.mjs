@@ -18,38 +18,10 @@ const report = [];
 
 /** @typedef {{ file: string, maxWidth?: number, widths?: number[], quality?: number, keepOriginal?: boolean }} Job */
 
-/** Jobs: relative to src/assets */
+/** Jobs: relative to src/assets (source originals only; skip if already removed). */
 const jobs = [
-  // LCP / hero
   { file: "hero-phoropter.jpg", maxWidth: 1920, widths: [768, 1280, 1920], quality: 78 },
-  { file: "hero-eye-exam.jpg", maxWidth: 1200, widths: [640, 960], quality: 78 },
-
-  // Eye facts (includes the multi-MB PNGs)
-  { file: "eye-facts/01-eye-anatomy.jpg", maxWidth: 1200, widths: [480, 800, 1200], quality: 78 },
-  { file: "eye-facts/02-glaucoma.png", maxWidth: 1200, widths: [480, 800, 1200], quality: 80 },
-  { file: "eye-facts/03-uv-wear.jpg", maxWidth: 1200, widths: [480, 800, 1200], quality: 78 },
-  { file: "eye-facts/04-child-eye-exam.jpg", maxWidth: 1200, widths: [480, 800, 1200], quality: 78 },
-  { file: "eye-facts/05-digital-strain.jpg", maxWidth: 1200, widths: [480, 800, 1200], quality: 78 },
-  { file: "eye-facts/06-tear-film.png", maxWidth: 1200, widths: [480, 800, 1200], quality: 80 },
-  { file: "eye-facts/07-diabetes.png", maxWidth: 1200, widths: [480, 800, 1200], quality: 80 },
-  { file: "eye-facts/08-brain-pathway.png", maxWidth: 1200, widths: [480, 800, 1200], quality: 80 },
-  { file: "eye-facts/09-lenses.jpg", maxWidth: 1200, widths: [480, 800, 1200], quality: 78 },
-  { file: "eye-facts/10-warning-signs.jpg", maxWidth: 1200, widths: [480, 800, 1200], quality: 78 },
-  { file: "eye-facts/11-night-vision.jpg", maxWidth: 1200, widths: [480, 800, 1200], quality: 78 },
-  { file: "eye-facts/12-nutrition.jpg", maxWidth: 1200, widths: [480, 800, 1200], quality: 78 },
-
-  // Tips / services / promo
-  { file: "tip-eye-exam.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
-  { file: "tip-vision-testing.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
-  { file: "tip-eyeglasses.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
-  { file: "tip-eye-anatomy.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
-  { file: "tip-screen-protection.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
-  { file: "tip-sunglasses.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
-  { file: "service-consultation.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
-  { file: "service-children.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
-  { file: "service-lenses.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
   { file: "frames-display.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
-  { file: "eyewear-collection.jpg", maxWidth: 960, widths: [480, 800], quality: 78 },
 ];
 
 async function convertFile(rel, opts) {

@@ -1,27 +1,24 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  ChevronDown, BookOpen, Phone, MessageCircle, Calendar,
-} from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Phone, MessageCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SeoHead from "@/components/SeoHead";
+import CoverflowCarousel, {
+  COVERFLOW_THEMES,
+  type CoverflowSlide,
+} from "@/components/CoverflowCarousel";
 import { useBranchContact } from "@/components/BranchContactProvider";
 import { seoByPath } from "@/data/seo";
-import { eyeFactImages, type ResponsiveImage } from "@/data/optimizedMedia";
 
-const topics: {
-  img: ResponsiveImage;
-  alt: string;
-  title: string;
-  summary: string;
+type LearnTopic = CoverflowSlide & {
   sections: { heading: string; content: string }[];
-}[] = [
+};
+
+const topicBlueprints: Omit<LearnTopic, "id" | "theme">[] = [
   {
-    img: eyeFactImages.eyeAnatomy,
-    alt: "Scientific cross-section of the human eye labelling the cornea, iris, pupil, lens, retina and optic nerve",
+    category: "Vision Science",
     title: "How the Eye Works",
     summary: "Your eyes are incredibly complex organs that process millions of signals every second.",
     sections: [
@@ -33,8 +30,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.glaucoma,
-    alt: "Medical illustration comparing normal vision and drainage with glaucoma-related optic nerve damage and tunnel vision",
+    category: "Eye Health",
     title: "Glaucoma",
     summary: "Known as the 'silent thief of sight' — often has no early symptoms.",
     sections: [
@@ -46,8 +42,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.uvWear,
-    alt: "Aviator sunglasses resting on sunlit beach sand, representing quality UV eye protection",
+    category: "Prevention",
     title: "UV Protection",
     summary: "Prolonged UV exposure can cause cataracts, macular damage, and eye cancers.",
     sections: [
@@ -59,8 +54,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.digitalStrain,
-    alt: "Dual computer monitors glowing in a dark workspace, illustrating digital screen use and eye-strain awareness",
+    category: "Everyday Vision",
     title: "Digital Eye Strain",
     summary: "Screen time affects over 60% of regular computer users worldwide.",
     sections: [
@@ -72,8 +66,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.childExam,
-    alt: "Classic Snellen eye chart used to measure visual acuity during children's vision exams",
+    category: "Family Care",
     title: "Children's Vision",
     summary: "Vision develops rapidly in early childhood — early detection is key.",
     sections: [
@@ -85,8 +78,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.tearFilm,
-    alt: "Educational diagram of the tear film showing lipid, aqueous and mucin layers over the cornea surface",
+    category: "Eye Health",
     title: "Dry Eye Syndrome",
     summary: "A common condition affecting tear production, quality, or drainage.",
     sections: [
@@ -98,8 +90,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.diabetes,
-    alt: "Medical illustration comparing a healthy retina with diabetic retinopathy and a magnified fundus view of retinal damage",
+    category: "Eye Health",
     title: "Diabetes & Your Eyes",
     summary: "Diabetic retinopathy is a leading cause of blindness in working-age adults.",
     sections: [
@@ -111,8 +102,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.nutrition,
-    alt: "Fresh eye-health foods including leafy greens, orange vegetables and avocado in a colourful meal presentation",
+    category: "Prevention",
     title: "Nutrition for Eye Health",
     summary: "Key vitamins, minerals, and nutrients help protect and maintain your vision.",
     sections: [
@@ -124,8 +114,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.brainPathway,
-    alt: "Scientific diagram of the human visual pathway from the eyes through the optic nerves to the visual cortex",
+    category: "Vision Science",
     title: "Eyes & Brain Connection",
     summary: "Nearly 50% of your brain is dedicated to visual processing.",
     sections: [
@@ -137,8 +126,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.warning,
-    alt: "Close-up of a slit-lamp tonometer with cobalt-blue light, representing urgent clinical eye assessment",
+    category: "Urgent Care",
     title: "Eye Emergencies",
     summary: "Know the warning signs that require immediate professional attention.",
     sections: [
@@ -150,8 +138,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.nightVision,
-    alt: "City highway at night with headlight glare and light trails, illustrating low-light and night-driving vision challenges",
+    category: "Vision Science",
     title: "Night Vision",
     summary: "Your eyes can take up to 30 minutes to fully adapt to darkness.",
     sections: [
@@ -163,8 +150,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.lenses,
-    alt: "Studio product photograph of prescription eyeglasses with clear lenses on a teal background",
+    category: "Eyewear Guidance",
     title: "Choosing the Right Lenses",
     summary: "Modern lenses offer far more than simple vision correction.",
     sections: [
@@ -176,8 +162,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.nutrition,
-    alt: "Fresh eye-health foods including leafy greens, orange vegetables and avocado in a colourful meal presentation",
+    category: "Eye Care Tip",
     title: "How To Care For Your Eyes",
     summary: "Simple daily habits to maintain healthy vision throughout your life.",
     sections: [
@@ -192,8 +177,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.warning,
-    alt: "Close-up of a slit-lamp tonometer with cobalt-blue light, representing urgent clinical eye assessment",
+    category: "Eye Health",
     title: "Eye Symptoms",
     summary: "Common eye symptoms that can reveal or result in more severe eye conditions.",
     sections: [
@@ -208,8 +192,7 @@ const topics: {
     ],
   },
   {
-    img: eyeFactImages.glaucoma,
-    alt: "Medical illustration comparing normal vision and drainage with glaucoma-related optic nerve damage and tunnel vision",
+    category: "Eye Health",
     title: "Eye Conditions",
     summary: "Common eye conditions, their symptoms, causes, and care.",
     sections: [
@@ -225,118 +208,71 @@ const topics: {
   },
 ];
 
-const diagramTitles = new Set([
-  "Dry Eye Syndrome",
-  "Eyes & Brain Connection",
-  "Diabetes & Your Eyes",
-  "Glaucoma",
-  "Eye Conditions",
-]);
+const topics: LearnTopic[] = topicBlueprints.map((topic, index) => ({
+  ...topic,
+  id: topic.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+  theme: COVERFLOW_THEMES[index % COVERFLOW_THEMES.length],
+}));
 
 const LearnAboutEyes = () => {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const { openContact } = useBranchContact();
+  const reduceMotion = useReducedMotion();
 
   return (
     <>
       <SeoHead seo={seoByPath["/learn"]} />
       <Navbar />
-      <main className="pt-20 md:pt-24 pb-20 bg-background min-h-screen">
-        <section className="gradient-brand py-16 md:py-20">
+      <main className="min-h-screen overflow-x-clip bg-[#eef2f8] pb-28 pt-20 md:pb-32 md:pt-24">
+        <section className="pb-8 pt-10 md:pb-10 md:pt-14">
           <div className="container text-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <BookOpen className="mx-auto mb-4 text-primary-foreground" size={48} />
-              <h1 className="text-3xl md:text-5xl font-heading font-bold text-primary-foreground mb-4">
+            <motion.div
+              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mx-auto max-w-3xl"
+            >
+              <p className="mb-3 font-body text-sm uppercase tracking-[0.22em] text-primary">
+                Eye Health Education
+              </p>
+              <h1 className="font-heading text-3xl font-bold text-foreground md:text-5xl">
                 Learn About Your Eyes
               </h1>
-              <p className="text-primary-foreground/80 max-w-xl mx-auto">
-                Explore interactive educational content about eye health, vision conditions, and how to protect your sight. Click any topic to learn more.
+              <p className="mx-auto mt-4 max-w-xl font-body text-muted-foreground">
+                Explore one topic at a time — swipe, drag or use the controls to move through interactive eye-health education.
               </p>
             </motion.div>
           </div>
         </section>
 
-        <div className="container py-10">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {topics.map((topic, i) => {
-              const isExpanded = expandedIndex === i;
-              const isDiagram = diagramTitles.has(topic.title);
-
+        <section className="pb-16 md:pb-20">
+          <CoverflowCarousel
+            slides={topics}
+            ariaLabel="Learn about your eyes topics"
+            itemLabel="topic"
+            expandLabel="Explore topic"
+            collapseLabel="Hide details"
+            renderExpanded={(slide) => {
+              const topic = slide as LearnTopic;
               return (
-                <motion.article
-                  key={topic.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className={`bg-card rounded-xl shadow-card overflow-hidden transition-all duration-300 ${
-                    isExpanded ? "ring-2 ring-primary sm:col-span-2 lg:col-span-3" : "hover:shadow-teal cursor-pointer"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    className="w-full text-left"
-                    onClick={() => setExpandedIndex(isExpanded ? null : i)}
-                    aria-expanded={isExpanded}
-                  >
-                    <div className={`overflow-hidden bg-muted ${isExpanded ? "aspect-[21/9] md:aspect-[24/9]" : "aspect-[16/10]"}`}>
-                      <img
-                        src={topic.img.src}
-                        srcSet={topic.img.srcSet}
-                        sizes={topic.img.sizes}
-                        width={topic.img.width}
-                        height={topic.img.height}
-                        alt={topic.alt}
-                        className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
-                          isDiagram ? "object-contain bg-background p-3 md:p-4" : ""
-                        } ${topic.title === "Diabetes & Your Eyes" || topic.title === "Glaucoma" || topic.title === "Eye Conditions" ? "object-contain bg-white p-2" : ""}`}
-                        loading="lazy"
-                        decoding="async"
-                      />
+                <div className="space-y-3">
+                  {topic.sections.map((section) => (
+                    <div key={section.heading}>
+                      <h4 className={`font-heading text-sm font-semibold ${topic.theme.text}`}>
+                        {section.heading}
+                      </h4>
+                      <p className={`mt-1 font-body text-sm leading-relaxed ${topic.theme.muted}`}>
+                        {section.content}
+                      </p>
                     </div>
-
-                    <div className="p-5 md:p-6 flex items-start gap-3">
-                      <div className="flex-1 min-w-0">
-                        <h2 className="font-heading text-lg font-semibold text-foreground mb-1">{topic.title}</h2>
-                        <p className="text-muted-foreground text-sm leading-relaxed">{topic.summary}</p>
-                      </div>
-                      <ChevronDown
-                        size={20}
-                        className={`text-muted-foreground shrink-0 transition-transform duration-300 mt-1 ${
-                          isExpanded ? "rotate-180" : ""
-                        }`}
-                      />
-                    </div>
-                  </button>
-
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-5 md:px-6 pb-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4 border-t border-border pt-4">
-                          {topic.sections.map((section) => (
-                            <div key={section.heading} className="bg-accent/50 rounded-lg p-4">
-                              <h3 className="font-heading font-semibold text-foreground text-sm mb-2">{section.heading}</h3>
-                              <p className="text-muted-foreground text-sm leading-relaxed">{section.content}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.article>
+                  ))}
+                </div>
               );
-            })}
-          </div>
-        </div>
+            }}
+          />
+        </section>
 
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-md border-t border-border py-3 px-4 flex items-center justify-center gap-3">
+        <div className="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-center gap-3 border-t border-border bg-card/95 px-4 py-3 backdrop-blur-md">
           <a href="/#booking">
-            <Button size="sm" className="gradient-teal text-primary-foreground gap-1.5 text-xs">
+            <Button size="sm" className="gradient-teal gap-1.5 text-xs text-primary-foreground">
               <Calendar size={14} /> Book Eye Exam
             </Button>
           </a>
